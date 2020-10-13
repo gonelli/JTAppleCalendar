@@ -468,6 +468,14 @@ extension JTACMonthView {
         
         let cellAttributes = calendarViewLayout.elementsAtRect(excludeHeaders: true, from: rect)
         let indexPaths: [IndexPath] = cellAttributes.map { $0.indexPath }.sorted()
-        return dateSegmentInfoFrom(visible: indexPaths)
+        
+        // TONY FROM HERE TO BOTTOM
+        let dates = dateSegmentInfoFrom(visible: indexPaths)
+        
+        if let firstDateSection = dates.monthDates.first?.indexPath.section {
+            return DateSegmentInfo(indates: dates.indates.filter {$0.indexPath.section == firstDateSection}, monthDates: dates.monthDates.filter {$0.indexPath.section == firstDateSection}, outdates: dates.outdates.filter {$0.indexPath.section == firstDateSection})
+        }
+
+        return dates
     }
 }

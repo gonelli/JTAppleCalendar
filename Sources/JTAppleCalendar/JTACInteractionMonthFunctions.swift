@@ -595,7 +595,13 @@ extension JTACMonthView {
     /// - returns:
     ///     - DateSegmentInfo
     public func visibleDates()-> DateSegmentInfo {
-        return datesAtCurrentOffset()
+        let dates = datesAtCurrentOffset()
+        
+        if let firstDateSection = dates.monthDates.first?.indexPath.section {
+            return DateSegmentInfo(indates: dates.indates.filter {$0.indexPath.section == firstDateSection}, monthDates: dates.monthDates.filter {$0.indexPath.section == firstDateSection}, outdates: dates.outdates.filter {$0.indexPath.section == firstDateSection})
+        }
+        
+        return dates
     }
     
     /// Returns the visible dates of the calendar.

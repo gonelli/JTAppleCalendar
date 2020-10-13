@@ -305,6 +305,14 @@ class JTAppleDateConfigGenerator {
                     case .tillEndOfGrid, .tillEndOfRow:
                         numberOfPostDatesForThisMonth =
                             maxNumberOfDaysInWeek * numberOfRowsToGenerateForCurrentMonth - (numberOfDaysInMonthFixed + numberOfPreDatesForThisMonth)
+                        // TONY ADDED START
+                        if (numberOfDaysInMonthFixed + numberOfPreDatesForThisMonth) <= 35 {
+                            numberOfPostDatesForThisMonth -= maxNumberOfDaysInWeek
+                        }
+                        if (numberOfDaysInMonthFixed + numberOfPreDatesForThisMonth) <= 28 {
+                            numberOfPostDatesForThisMonth -= maxNumberOfDaysInWeek
+                        }
+                        // TONY ADDED END
                         numberOfDaysInMonthVariable += numberOfPostDatesForThisMonth
                     default:
                         break
